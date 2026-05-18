@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arquitetura de IA - Consultor de Benefícios Benício</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Tailwind Config for Custom iFood Colors -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        ifood: {
+                            red: '#EA1D2C',
+                            darkRed: '#C21320',
+                            lightRed: '#FEE2E2',
+                            grayBg: '#F7F7F7',
+                            slate: '#0F172A',
+                            brandGreen: '#00A23B',
+                            brandBlue: '#0070E0'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Lucide Icons (CDN) -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F8FAFC;
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #F1F5F9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #CBD5E1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94A3B8;
+        }
+        /* Hover Animations */
+        .node-hover-effect {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .node-hover-effect:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+    </style>
+</head>
+<body class="text-slate-800 antialiased min-h-screen flex flex-col">
+
+    <!-- Header / Navbar -->
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-40 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <!-- iFood-like brand dot & Title -->
+                <div class="w-8 h-8 rounded-full bg-ifood-red flex items-center justify-center text-white font-extrabold text-sm shadow-md shadow-red-200">
+                    iF
+                </div>
+                <div>
+                    <h1 class="text-lg font-bold text-slate-900 leading-tight">Benício AI</h1>
+                    <p class="text-xs text-slate-500 font-medium">Arquitetura de Recomendação Inteligente de Benefícios</p>
+                </div>
+            </div>
+            
+            <div class="flex items-center space-x-4">
+                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-red-50 text-ifood-red border border-red-100">
+                    <span class="w-1.5 h-1.5 rounded-full bg-ifood-red mr-1.5 animate-pulse"></span>
+                    Mapeado para Realidade iFood
+                </span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Grid -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 grid grid-cols-1 lg:grid-cols-12 gap-6">
+        
+        <!-- LEFT PANEL: Architectural Diagram (Col-9 for wider view) -->
+        <div class="lg:col-span-9 flex flex-col bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden min-h-[800px]">
+            
+            <!-- Controls / Title bar -->
+            <div class="p-4 border-b border-slate-100 bg-slate-50 flex items-center justify-between">
+                <div class="flex items-center space-x-2">
+                    <i data-lucide="git-branch" class="text-ifood-red w-5 h-5"></i>
+                    <span class="font-bold text-slate-700 text-sm uppercase tracking-wider">Fluxograma Técnico da Solução</span>
+                </div>
+                <span class="text-xs text-slate-400 font-medium">Clique em qualquer bloco para ver as conexões e tecnologias</span>
+            </div>
+
+            <!-- Interactive Architecture Canvas -->
+            <div class="flex-grow p-6 relative flex flex-col items-center justify-start overflow-y-auto space-y-6">
+                
+                <!-- LAYER 1: FOODLOVER CHANNEL -->
+                <div class="w-full flex justify-center z-10">
+                    <div id="node-foodlover" onclick="selectNode('foodlover')" class="node-hover-effect cursor-pointer group relative w-80 bg-white rounded-xl border-2 border-slate-200 hover:border-ifood-red p-3.5 text-center">
+                        <div class="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-slate-800 text-white text-[9px] font-bold px-2.5 py-0.5 rounded-full uppercase tracking-wider">
+                            Entrada
+                        </div>
+                        <div class="flex items-center justify-center space-x-3">
+                            <div class="w-9 h-9 rounded-full bg-red-50 flex items-center justify-center text-ifood-red">
+                                <i data-lucide="user" class="w-5 h-5"></i>
+                            </div>
+                            <div class="text-left">
+                                <div class="font-bold text-slate-900 text-sm group-hover:text-ifood-red transition">Foodlover</div>
+                                <div class="text-[11px] text-slate-500">Canal de Acesso: Portal Web / App</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ARROW 1 -->
+                <div class="h-6 w-0.5 bg-slate-300 relative">
+                    <div class="absolute bottom-0 -left-[3px] border-l-4 border-r-4 border-t-4 border-l-transparent border-r-transparent border-t-slate-400"></div>
+                </div>
+
+                <!-- LAYER 2: ORCHESTRATOR AGENT -->
+                <div class="w-full flex justify-center z-10">
+                    <div id="node-orchestrator" onclick="selectNode('orchestrator')" class="node-hover-effect cursor-pointer group relative w-[460px] bg-indigo-50/70 hover:bg-indigo-100/70 rounded-xl border-2 border-indigo-200 hover:border-indigo-400 p-4 text-center shadow-sm">
+                        <div class="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-indigo-600 text-white text-[9px] font-bold px-3 py-0.5 rounded-full uppercase tracking-wider">
+                            Cérebro da Solução
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <div class="w-10 h-10 rounded-lg bg-indigo-500 text-white flex items-center justify-center flex-shrink-0">
+                                <i data-lucide="cpu" class="w-6 h-6"></i>
+                            </div>
+                            <div class="text-left">
+                                <div class="font-bold text-indigo-950 text-sm group-hover:text-indigo-600 transition">Agente Orquestrador</div>
+                                <div class="text-[11px] text-indigo-800 mt-1 leading-relaxed">
+                                    Detecta dados históricos e comportamentos, regras, dados estratégicos dos parceiros e processa recomendações.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SVG Connections to Specialists -->
+                <div class="w-full max-w-3xl px-8 h-8 relative">
+                    <svg class="w-full h-full" viewBox="0 0 600 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M300 0 V15 H50 V32 M300 15 H216 V32 M300 15 H383 V32 M300 15 H550 V32" stroke="#CBD5E1" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </div>
+
+                <!-- LAYER 3: SPECIALIZED AGENTS LAYER (4 Cards Grid) -->
+                <div class="w-full grid grid-cols-1 sm:grid-cols-4 gap-3.5 z-10 max-w-5xl">
+                    <!-- Agent 1: Perfil Foodlovers -->
+                    <div id="node-agent-profile" onclick="selectNode('agent-profile')" class="node-hover-effect cursor-pointer group bg-emerald-50 hover:bg-emerald-100 rounded-xl border-2 border-emerald-200 hover:border-emerald-400 p-3.5 text-center flex flex-col justify-between shadow-sm min-h-[120px]">
+                        <div class="text-[9px] font-bold text-emerald-700 tracking-wider uppercase mb-1">Agente Especializado</div>
+                        <div class="font-bold text-emerald-950 text-xs">1 - Perfil Foodlovers</div>
+                        <p class="text-[10px] text-emerald-700 mt-1">Classificação, ciclo de vida e cargo atual.</p>
+                        <div class="mt-2 text-[10px] bg-white rounded border border-emerald-200 text-emerald-800 font-semibold py-0.5">Mapeador de Perfil</div>
+                    </div>
+
+                    <!-- Agent 2: Regras e Parceiros -->
+                    <div id="node-agent-partners" onclick="selectNode('agent-partners')" class="node-hover-effect cursor-pointer group bg-emerald-50 hover:bg-emerald-100 rounded-xl border-2 border-emerald-200 hover:border-emerald-400 p-3.5 text-center flex flex-col justify-between shadow-sm min-h-[120px]">
+                        <div class="text-[9px] font-bold text-emerald-700 tracking-wider uppercase mb-1">Agente Especializado</div>
+                        <div class="font-bold text-emerald-950 text-xs">2 - Regras e Parceiros</div>
+                        <p class="text-[10px] text-emerald-700 mt-1">Validação de contratos, rede credenciada e playbooks.</p>
+                        <div class="mt-2 text-[10px] bg-white rounded border border-emerald-200 text-emerald-800 font-semibold py-0.5">Validador de Contratos</div>
+                    </div>
+
+                    <!-- Agent 3: Eleições Históricas -->
+                    <div id="node-agent-elections" onclick="selectNode('agent-elections')" class="node-hover-effect cursor-pointer group bg-emerald-50 hover:bg-emerald-100 rounded-xl border-2 border-emerald-200 hover:border-emerald-400 p-3.5 text-center flex flex-col justify-between shadow-sm min-h-[120px]">
+                        <div class="text-[9px] font-bold text-emerald-700 tracking-wider uppercase mb-1">Agente Especializado</div>
+                        <div class="font-bold text-emerald-950 text-xs">3 - Banco de Eleições</div>
+                        <p class="text-[10px] text-emerald-700 mt-1">Comportamentos históricos e eleições passadas.</p>
+                        <div class="mt-2 text-[10px] bg-white rounded border border-emerald-200 text-emerald-800 font-semibold py-0.5">Analista Histórico</div>
+                    </div>
+
+                    <!-- Agent 4: Processador de Recomendação -->
+                    <div id="node-agent-engine" onclick="selectNode('agent-engine')" class="node-hover-effect cursor-pointer group bg-emerald-50 hover:bg-emerald-100 rounded-xl border-2 border-emerald-200 hover:border-emerald-400 p-3.5 text-center flex flex-col justify-between shadow-sm min-h-[120px]">
+                        <div class="text-[9px] font-bold text-emerald-700 tracking-wider uppercase mb-1">Agente Especializado</div>
+                        <div class="font-bold text-emerald-950 text-xs">4 - Recomendador</div>
+                        <p class="text-[10px] text-emerald-700 mt-1">Processador de matching de ofertas e simulações reais.</p>
+                        <div class="mt-2 text-[10px] bg-white rounded border border-emerald-200 text-emerald-800 font-semibold py-0.5">Motor de Matching</div>
+                    </div>
+                </div>
+
+                <!-- SVG Downward Connecting Paths from Specialists to Knowledge base -->
+                <div class="w-full max-w-4xl px-8 h-8 relative">
+                    <svg class="w-full h-full" viewBox="0 0 800 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M100 0 V32 M300 0 V32 M500 0 V32 M700 0 V32" stroke="#CBD5E1" stroke-width="2"/>
+                    </svg>
+                </div>
+
+                <!-- LAYER 4: KNOWLEDGE & DATA LAYER (Real assets mapped) -->
+                <div class="w-full flex flex-col items-center bg-amber-50/40 rounded-2xl border border-dashed border-amber-300 p-5 max-w-5xl z-10">
+                    <div class="text-xs font-bold text-amber-800 uppercase tracking-widest mb-4 flex items-center gap-1.5">
+                        <i data-lucide="database" class="w-4 h-4 text-amber-600"></i>
+                        Camada de Conhecimento e Dados
+                    </div>
+                    
+                    <div class="w-full grid grid-cols-1 sm:grid-cols-4 gap-3.5">
+                        <!-- Knowledge Node 1 -->
+                        <div id="node-kb-profile" onclick="selectNode('kb-profile')" class="node-hover-effect cursor-pointer group relative bg-amber-100/50 hover:bg-amber-100 rounded-lg border border-amber-300 hover:border-amber-500 p-3 text-left">
+                            <span class="absolute top-1.5 right-1.5 flex h-2 w-2">
+                                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                                <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                            </span>
+                            <div class="font-bold text-amber-950 text-[11px] leading-tight">1 - Base Foodlovers</div>
+                            <div class="text-[10px] text-amber-800 mt-1">Pronto no: <span class="underline font-medium">Agente Flex Consultor</span>.</div>
+                        </div>
+
+                        <!-- Knowledge Node 2 -->
+                        <div id="node-kb-rules" onclick="selectNode('kb-rules')" class="node-hover-effect cursor-pointer group relative bg-amber-100/50 hover:bg-amber-100 rounded-lg border border-amber-300 hover:border-amber-500 p-3 text-left">
+                            <span class="absolute top-1.5 right-1.5 flex h-2 w-2">
+                                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
+                                <span class="relative inline-flex rounded-full h-2 w-2 bg-indigo-500"></span>
+                            </span>
+                            <div class="font-bold text-amber-950 text-[11px] leading-tight">2 - Regras Contratuais</div>
+                            <div class="text-[10px] text-amber-800 mt-1">Integrado: <span class="underline font-medium">Agente Pri & Contratos</span>.</div>
+                        </div>
+
+                        <!-- Knowledge Node 3 -->
+                        <div id="node-kb-elections" onclick="selectNode('kb-elections')" class="node-hover-effect cursor-pointer group relative bg-amber-100/50 hover:bg-amber-100 rounded-lg border border-amber-300 hover:border-amber-500 p-3 text-left">
+                            <span class="absolute top-1.5 right-1.5 flex h-2 w-2">
+                                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                                <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                            </span>
+                            <div class="font-bold text-amber-950 text-[11px] leading-tight">3 - Banco de Eleições</div>
+                            <div class="text-[10px] text-amber-800 mt-1">Pronto no: <span class="underline font-medium">Flex Consultor</span>.</div>
+                        </div>
+
+                        <!-- Knowledge Node 4 -->
+                        <div id="node-kb-engine" onclick="selectNode('kb-engine')" class="node-hover-effect cursor-pointer group relative bg-amber-100/50 hover:bg-amber-100 rounded-lg border border-amber-300 hover:border-amber-500 p-3 text-left">
+                            <span class="absolute top-1.5 right-1.5 flex h-2 w-2">
+                                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
+                                <span class="relative inline-flex rounded-full h-2 w-2 bg-amber-500"></span>
+                            </span>
+                            <div class="font-bold text-amber-950 text-[11px] leading-tight">4 - Recomendador</div>
+                            <div class="text-[10px] text-amber-800 mt-1">Mapeamento: <span class="underline font-medium">Benício atuando</span>.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Arrow pointing to Output Layer -->
+                <div class="h-6 w-0.5 bg-slate-300 relative">
+                    <div class="absolute bottom-0 -left-[3px] border-l-4 border-r-4 border-t-4 border-l-transparent border-r-transparent border-t-slate-400"></div>
+                </div>
+
+                <!-- LAYER 5: OUTPUT AND FALLBACK (Human-in-loop side-by-side) -->
+                <div class="w-full grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-4xl z-10">
+                    <!-- Custom Output generated -->
+                    <div id="node-output" onclick="selectNode('output')" class="node-hover-effect cursor-pointer group col-span-2 relative bg-red-50/60 hover:bg-red-50 rounded-xl border-2 border-red-200 hover:border-red-400 p-4 flex items-start space-x-3.5 shadow-sm">
+                        <div class="absolute -top-3 left-6 bg-ifood-red text-white text-[9px] font-bold px-2.5 py-0.5 rounded-full uppercase tracking-wider">
+                            5 - Camada de Saída
+                        </div>
+                        <div class="w-10 h-10 rounded-lg bg-ifood-red text-white flex items-center justify-center flex-shrink-0">
+                            <i data-lucide="sparkles" class="w-5 h-5"></i>
+                        </div>
+                        <div class="text-left">
+                            <div class="font-bold text-slate-900 text-sm">Resposta Gerada</div>
+                            <div class="text-[11px] text-slate-600 mt-1 leading-relaxed">
+                                Geração automática de <strong>recomendações, comparativos e valores reais em R$</strong> (não apenas em pontos abstratos).
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Human-in-loop fallback -->
+                    <div id="node-fallback" onclick="selectNode('fallback')" class="node-hover-effect cursor-pointer group relative bg-slate-100 hover:bg-slate-200 rounded-xl border-2 border-slate-300 hover:border-slate-400 p-3 flex flex-col justify-between shadow-sm">
+                        <div class="flex items-center space-x-2">
+                            <div class="w-6 h-6 rounded bg-slate-400 text-white flex items-center justify-center">
+                                <i data-lucide="users" class="w-3.5 h-3.5"></i>
+                            </div>
+                            <div class="font-bold text-slate-800 text-xs">Human-in-the-loop</div>
+                        </div>
+                        <p class="text-[10px] text-slate-600 mt-1.5 text-left leading-tight">Escalada direta para o time interno de RH/People caso necessite de validação manual.</p>
+                        <span class="mt-2 text-[9px] text-slate-500 font-semibold uppercase tracking-wider text-left">Suporte especializado</span>
+                    </div>
+                </div>
+
+                <!-- Arrow pointing to Continuous Loop -->
+                <div class="h-6 w-0.5 bg-slate-300 relative">
+                    <div class="absolute bottom-0 -left-[3px] border-l-4 border-r-4 border-t-4 border-l-transparent border-r-transparent border-t-slate-400"></div>
+                </div>
+
+                <!-- LAYER 6: CONTINUOUS LEARNING LOOP -->
+                <div class="w-full flex justify-center z-10">
+                    <div id="node-learning" onclick="selectNode('learning')" class="node-hover-effect cursor-pointer group relative w-[520px] bg-blue-50/70 hover:bg-blue-100/70 rounded-xl border-2 border-blue-200 hover:border-blue-400 p-4 shadow-sm">
+                        <div class="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-ifood-brandBlue text-white text-[9px] font-bold px-3 py-0.5 rounded-full uppercase tracking-wider">
+                            6 - Loop de Aprendizado Contínuo
+                        </div>
+                        <div class="flex items-center space-x-3 justify-center">
+                            <i data-lucide="refresh-cw" class="text-ifood-brandBlue w-5 h-5 animate-spin-slow"></i>
+                            <div class="text-left">
+                                <div class="font-bold text-slate-900 text-xs">Aprimoramento via Feedback no Portal</div>
+                                <div class="text-[10px] text-slate-600 mt-0.5 leading-snug">
+                                    Recebe feedback explícito no próprio portal corporativo para retroalimentar o comportamento e calibração fina da inteligência do Benício.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- LAYER 7: GOVERNANCE / GUARDRAILS (Horizontal bottom bar) -->
+                <div class="w-full max-w-5xl z-10 pt-4">
+                    <div id="node-governance" onclick="selectNode('governance')" class="node-hover-effect cursor-pointer group relative w-full bg-red-100/40 hover:bg-red-100 rounded-xl border-2 border-red-200 hover:border-red-400 p-3.5 text-center shadow-sm">
+                        <div class="absolute -top-3 left-6 bg-red-600 text-white text-[9px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">
+                            7 - Ponto de Atenção e Segurança
+                        </div>
+                        <div class="flex items-center justify-center space-x-3">
+                            <i data-lucide="shield-check" class="text-ifood-red w-5 h-5 flex-shrink-0"></i>
+                            <div class="text-left">
+                                <span class="font-bold text-red-950 text-xs uppercase tracking-wide">Governança, LGPD e Travas Contratuais:</span>
+                                <span class="text-[11px] text-red-900 ml-1">Processos de ponta a ponta estruturados sob conformidade de tratamento de dados sensíveis e regras jurídicas em vigor.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- RIGHT PANEL: Visual Presentation of Benício (Col-3 for perfect balance) -->
+        <div class="lg:col-span-3 flex flex-col space-y-6">
+            
+            <!-- Beautiful Mascot Card -->
+            <div class="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white rounded-2xl p-6 border border-slate-700 shadow-xl relative overflow-visible flex flex-col items-center text-center">
+                <!-- Glowing backgrounds -->
+                <div class="absolute -right-16 -top-16 w-32 h-32 bg-ifood-red opacity-25 rounded-full blur-2xl"></div>
+                <div class="absolute -left-16 -bottom-16 w-32 h-32 bg-indigo-500 opacity-20 rounded-full blur-2xl"></div>
+
+                <!-- Benício Img (using image_f81db3.png as transparent asset) -->
+                <div class="relative w-52 h-52 flex items-center justify-center overflow-visible mb-4 group hover:scale-105 transition-transform duration-300">
+                    <!-- Subtle ambient aura behind the transparent figure -->
+                    <div class="absolute inset-0 bg-ifood-red/10 rounded-full filter blur-xl animate-pulse"></div>
+                    <!-- Drop-shadow filter applies directly to transparent PNG pixels creating outstanding 3D depth -->
+                    <img id="mascot-img" src="image_f81db3.png" alt="Benício - Consultor de Benefícios" class="object-contain max-h-full max-w-full relative z-10 drop-shadow-[0_15px_15px_rgba(234,29,44,0.3)]" onerror="handleImageError(this)">
+                </div>
+
+                <div class="relative z-10">
+                    <h3 class="text-lg font-bold tracking-tight">Benício</h3>
+                    <p class="text-[10px] text-slate-300 font-semibold px-2.5 py-0.5 bg-slate-800/80 border border-slate-700 rounded-full inline-block mt-1">
+                        IA de Recomendação iFood
+                    </p>
+                    <p class="text-xs text-slate-400 mt-3 max-w-xs leading-relaxed">
+                        Mascote e motor cognitivo calibrado para cruzar perfis e gerar as melhores simulações em valores reais para nossa base de foodlovers.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Architecture Legend / Info Card -->
+            <div class="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm space-y-4">
+                <div class="font-bold text-slate-800 text-xs uppercase tracking-wider flex items-center gap-1.5 border-b border-slate-100 pb-2">
+                    <i data-lucide="layers" class="w-4 h-4 text-ifood-red"></i>
+                    Camadas do Sistema
+                </div>
+                
+                <div class="space-y-3">
+                    <div class="flex items-start gap-2.5">
+                        <div class="w-3.5 h-3.5 rounded bg-slate-800 mt-0.5 flex-shrink-0"></div>
+                        <div>
+                            <div class="text-[11px] font-bold text-slate-900 leading-none">Canais de Entrada</div>
+                            <div class="text-[10px] text-slate-500 mt-0.5">Interface direta do Foodlover (Web/App).</div>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start gap-2.5">
+                        <div class="w-3.5 h-3.5 rounded bg-indigo-500 mt-0.5 flex-shrink-0"></div>
+                        <div>
+                            <div class="text-[11px] font-bold text-indigo-950 leading-none">Orquestração Central</div>
+                            <div class="text-[10px] text-slate-500 mt-0.5">Lógica de triagem e direcionamento de dados.</div>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start gap-2.5">
+                        <div class="w-3.5 h-3.5 rounded bg-emerald-400 mt-0.5 flex-shrink-0"></div>
+                        <div>
+                            <div class="text-[11px] font-bold text-emerald-950 leading-none">Agentes Especializados</div>
+                            <div class="text-[10px] text-slate-500 mt-0.5">Filtros inteligentes dedicados a regras específicas.</div>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start gap-2.5">
+                        <div class="w-3.5 h-3.5 rounded bg-amber-200 mt-0.5 flex-shrink-0"></div>
+                        <div>
+                            <div class="text-[11px] font-bold text-amber-950 leading-none">Conhecimento e Integrações</div>
+                            <div class="text-[10px] text-slate-500 mt-0.5">Bases e agentes como o Flex Consultor e Contratos.</div>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start gap-2.5">
+                        <div class="w-3.5 h-3.5 rounded bg-ifood-red mt-0.5 flex-shrink-0"></div>
+                        <div>
+                            <div class="text-[11px] font-bold text-slate-900 leading-none">Saídas e Resultados</div>
+                            <div class="text-[10px] text-slate-500 mt-0.5">Decisões, relatórios em R$ e caminhos de escala.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- Slide-over Drawer for Mapped technical specs (triggers on node click) -->
+    <div id="drawer-container" class="fixed inset-0 z-50 overflow-hidden hidden" aria-labelledby="slide-over-title" role="dialog" aria-modal="true">
+        <div class="absolute inset-0 overflow-hidden">
+            <!-- Backdrop -->
+            <div onclick="closeDrawer()" class="absolute inset-0 bg-slate-900/40 backdrop-blur-sm transition-opacity" aria-hidden="true"></div>
+
+            <div class="pointer-events-none fixed inset-y-0 right-0 flex max-w-full pl-10">
+                <!-- Slide-over panel -->
+                <div class="pointer-events-auto w-screen max-w-md transform transition ease-in-out duration-300 sm:duration-500">
+                    <div class="flex h-full flex-col overflow-y-scroll bg-white py-6 shadow-2xl border-l border-slate-200">
+                        <div class="px-6 border-b border-slate-100 pb-4">
+                            <div class="flex items-start justify-between">
+                                <div class="space-y-1">
+                                    <span id="drawer-type" class="inline-flex items-center rounded-full bg-red-50 px-2 py-0.5 text-xs font-semibold text-ifood-red">Tipo</span>
+                                    <h2 class="text-lg font-bold text-slate-900" id="drawer-title">Título do Componente</h2>
+                                </div>
+                                <div class="ml-3 flex h-7 items-center">
+                                    <button type="button" onclick="closeDrawer()" class="rounded-md bg-white text-slate-400 hover:text-slate-500 focus:outline-none">
+                                        <i data-lucide="x" class="w-6 h-6"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Content -->
+                        <div class="relative mt-6 flex-1 px-6 space-y-5 text-sm text-slate-600 leading-relaxed">
+                            <div class="space-y-2">
+                                <h3 class="font-bold text-xs text-slate-400 uppercase tracking-wider">Descrição Funcional</h3>
+                                <p id="drawer-desc" class="text-slate-700 bg-slate-50 rounded-xl p-4 border border-slate-100">Descrição técnica detalhada das capacidades integradas ao ecossistema.</p>
+                            </div>
+
+                            <div class="space-y-3 pt-2">
+                                <div class="p-3 bg-slate-50 rounded-lg border border-slate-100 flex items-start gap-2.5">
+                                    <i data-lucide="cpu" class="w-4 h-4 text-indigo-500 mt-0.5 flex-shrink-0"></i>
+                                    <div>
+                                        <h4 class="font-bold text-slate-900 text-xs uppercase tracking-wide">Tecnologia & Integração</h4>
+                                        <p id="drawer-tech" class="text-xs text-slate-600 mt-0.5">Sistemas legados, APIs ou processamento LLM envolvido.</p>
+                                    </div>
+                                </div>
+
+                                <div class="p-3 bg-emerald-50/50 rounded-lg border border-emerald-100 flex items-start gap-2.5">
+                                    <i data-lucide="arrow-right-circle" class="w-4 h-4 text-emerald-600 mt-0.5 flex-shrink-0"></i>
+                                    <div>
+                                        <h4 class="font-bold text-slate-900 text-xs uppercase tracking-wide">Entrada de Dados</h4>
+                                        <p id="drawer-inputs" class="text-xs text-slate-600 mt-0.5">Parâmetros de leitura consumidos por esta camada.</p>
+                                    </div>
+                                </div>
+
+                                <div class="p-3 bg-red-50/40 rounded-lg border border-red-100/60 flex items-start gap-2.5">
+                                    <i data-lucide="log-out" class="w-4 h-4 text-ifood-red mt-0.5 flex-shrink-0"></i>
+                                    <div>
+                                        <h4 class="font-bold text-slate-900 text-xs uppercase tracking-wide">Sinal de Saída / Output</h4>
+                                        <p id="drawer-outputs" class="text-xs text-slate-600 mt-0.5">Informação resultante transmitida adiante.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="border-t border-slate-100 px-6 pt-4 flex justify-end">
+                            <button onclick="closeDrawer()" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs rounded-xl transition">
+                                Fechar Lâmina
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-200 py-4 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-2">
+            <div>
+                © 2026 iFood People Tech. Todos os direitos reservados.
+            </div>
+            <div class="flex items-center space-x-4">
+                <a href="#" class="hover:underline hover:text-ifood-red transition">Segurança & LGPD</a>
+                <span>•</span>
+                <a href="#" class="hover:underline hover:text-ifood-red transition">Termos de Governança</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JS Logic and Slide-over Drawer System -->
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // Safe Fallback for Mascot image if missing/broken
+        function handleImageError(image) {
+            // Se falhar de primeira, tentamos referenciar o caminho relativo explícito antes de desistir
+            if (!image.dataset.retried) {
+                image.dataset.retried = "true";
+                image.src = "./image_f81db3.png";
+                return;
+            }
+            image.onerror = null; // Prevent infinite loop
+            // Standard placeholder SVG representing an assistant bot/mascot if the file cannot be loaded locally
+            image.src = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%23EA1D2C'/><path d='M30 40 Q50 30 70 40 M35 50 Q50 65 65 50' stroke='white' stroke-width='4' fill='none' stroke-linecap='round'/></svg>";
+        }
+
+        // Technical Node Data for Documenting the Architecture on Node Selection
+        const nodesData = {
+            'foodlover': {
+                title: "Foodlover (Web / App)",
+                type: "Canal de Entrada",
+                desc: "Representa a interface principal de autoatendimento onde o colaborador interage, consulta seu saldo e visualiza ou simula sua cesta de benefícios corporativos.",
+                tech: "Desenvolvido nativamente sobre o Portal Corporativo e App Interno dos Foodlovers.",
+                inputs: "Ações de clique do colaborador, intenções de troca e requisições de simulação.",
+                outputs: "Identificador único do colaborador (UID), token de autenticação e geolocalização."
+            },
+            'orchestrator': {
+                title: "Agente Orquestrador",
+                type: "Cérebro de IA",
+                desc: "Unidade central de processamento cognitivo. Tem o papel de detectar a intenção real do colaborador, recuperando seu perfil, dados de uso e regras para conduzir o matching otimizado.",
+                tech: "Processador de Linguagem Natural (LLM) integrado com memória de sessão e roteamento inteligente de agentes.",
+                inputs: "Texto em linguagem natural ou clique em ações dentro do Portal de benefícios.",
+                outputs: "Coordenação de gatilhos para ativação sincronizada dos agentes especialistas."
+            },
+            'agent-profile': {
+                title: "1 - Agente de Perfil (Foodlovers)",
+                type: "Agente Especializado",
+                desc: "Consolida as informações funcionais e o momento de ciclo de vida do colaborador iFood para calibrar as recomendações sob medida.",
+                tech: "Mapeador automatizado de classificação de cargos e perfis.",
+                inputs: "ID do Colaborador, base corporativa (Workday / sistemas internos de RH).",
+                outputs: "Mapeamento estruturado de cargo, nível hierárquico, faixa de salário e dependentes."
+            },
+            'agent-partners': {
+                title: "2 - Regras e Informações Completas dos Parceiros",
+                type: "Agente Especializado",
+                desc: "Processa as regras de elegibilidade contratual, vigência e termos da rede credenciada de benefícios parceiros (Gympass, convênios médicos, farmácias, etc.).",
+                tech: "Validador automático de elegibilidade via API de parceiros cadastrados.",
+                inputs: "Parâmetros geográficos do colaborador e regras de negócio ativas.",
+                outputs: "Lista personalizada de redes credenciadas elegíveis para o usuário específico."
+            },
+            'agent-elections': {
+                title: "3 - Banco de Eleições e Comportamentos Históricos",
+                type: "Agente Especializado",
+                desc: "Recupera as transações de benefícios realizadas nos meses anteriores, permitindo identificar padrões reais de engajamento do colaborador.",
+                tech: "Análise histórica e modelagem de séries temporais de consumo de benefícios.",
+                inputs: "Logs históricos de movimentação de benefícios e escolhas anteriores no portal.",
+                outputs: "Métricas consolidadas de aproveitamento real de planos de saúde, bem-estar e alimentação."
+            },
+            'agent-engine': {
+                title: "4 - Processador de Recomendação",
+                type: "Agente Especializado",
+                desc: "Algoritmo final de cálculo cognitivo. Cruza perfil, regras e histórico para simular os melhores cenários de migração de benefícios, traduzidos em valores reais.",
+                tech: "Modelos cognitivos customizados e algoritmos proprietários de matching iFood.",
+                inputs: "Combinação de saídas consolidadas dos Agentes 1, 2 e 3.",
+                outputs: "Rankeamento das Top-3 melhores propostas personalizadas com simulação em R$."
+            },
+            'kb-profile': {
+                title: "Base Foodlovers",
+                type: "Camada de Dados",
+                desc: "O banco contendo dados unificados de registro dos colaboradores do iFood.",
+                tech: "Solução ativa em produção: integrado com o nosso <strong>Agente Flex Consultor</strong>.",
+                inputs: "ID do colaborador logado.",
+                outputs: "Registro consolidado de perfil pessoal do colaborador."
+            },
+            'kb-rules': {
+                title: "Regras, Playbooks e Contratos",
+                type: "Camada de Dados",
+                desc: "O acervo unificado de diretrizes jurídicas, limites fiscais (como o PAT) e contratos de parceria de benefícios.",
+                tech: "Pronto e estruturado através do <strong>Agente de Contratos + Playbooks de Regras + Agente Flex da Pri</strong>.",
+                inputs: "Consultas de diretrizes e termos por parceiro de benefício.",
+                outputs: "Limites contratuais de planos e elegibilidade por nível."
+            },
+            'kb-elections': {
+                title: "Banco de Eleições",
+                type: "Camada de Dados",
+                desc: "Registro unificado das eleições ativas escolhidas na rodada flex anual ou no decorrer de upgrades de plano.",
+                tech: "Base de dados ativa integrada nativamente ao <strong>Flex Consultor</strong>.",
+                inputs: "Queries por colaborador.",
+                outputs: "Log histórico de planos contratados e escolhas vigentes."
+            },
+            'kb-engine': {
+                title: "Recomendador (Benício)",
+                type: "Camada de Dados",
+                desc: "O modelo semântico que já compreende como transformar a união de dados brutos de RH em recomendações fáceis de ler.",
+                tech: "Base de regras semânticas e base vetorial do assistente inteligente Benício.",
+                inputs: "Configurações de pesos e preferências por tipo de colaborador.",
+                outputs: "Sugestões descritivas polidas prontas para interpretação."
+            },
+            'output': {
+                title: "Resposta Gerada (Valores Reais em R$)",
+                type: "Camada de Saída",
+                desc: "Os cartões visuais finais formatados que chegam ao dispositivo do Foodlover, trazendo o comparativo entre o cenário atual e o recomendado, com foco em ganhos reais financeiros.",
+                tech: "Geração assistida (NLG) de documentos explicativos integrados ao frontend corporativo.",
+                inputs: "Resultados matemáticos e conceituais calculados pelo recomendador do Benício.",
+                outputs: "Interface amigável contendo: Top-3 sugestões de troca, economia gerada e caminhos práticos de contratação."
+            },
+            'fallback': {
+                title: "Human-in-the-loop",
+                type: "Tratamento de Exceções",
+                desc: "Processo de transição transparente para atendimento humanizado caso o colaborador discorde das simulações ou exija suporte especializado em negociações complexas.",
+                tech: "Integração via webhook com canais de atendimento e chamados do time de People do iFood.",
+                inputs: "Solicitação direta de contato humano registrada pelo colaborador.",
+                outputs: "Abertura automática de ticket técnico contendo todo o histórico avaliado pelo Benício."
+            },
+            'learning': {
+                title: "Loop de Aprendizado Contínuo",
+                type: "Retroalimentação",
+                desc: "O sistema analisa se a recomendação gerada pelo Benício foi aceita, ignorada ou recusada. O feedback imediato ajusta os pesos do algoritmo para tornar os próximos diagnósticos mais precisos.",
+                tech: "Reinforcement Learning com bases em comportamento real do usuário.",
+                inputs: "Logs de aceitação, alteração de planos no portal corporativo e cliques.",
+                outputs: "Pontuações de otimização aplicadas diretamente de volta ao Orquestrador e ao Recomendador."
+            },
+            'governance': {
+                title: "Governança e Guardrails de Segurança",
+                type: "Segurança e Governança",
+                desc: "Verificação contínua contra alucinações de IA, conformidade rigorosa à LGPD para dados corporativos e respeito total às travas contratuais de parcerias.",
+                tech: "Filtros e moderadores sintáticos de privacidade nativos integrados no tráfego de dados da aplicação.",
+                inputs: "Todas as trocas de mensagens e consultas de bases.",
+                outputs: "Bloqueio preventivo de dados sensíveis e formatação higienizada para os canais de entrada."
+            }
+        };
+
+        // Handles node clicks to open the Slide-over technical drawer
+        function selectNode(nodeId) {
+            // Remove highlighting borders from all nodes first
+            document.querySelectorAll('[id^="node-"]').forEach(el => {
+                el.classList.remove('border-ifood-red', 'ring-2', 'ring-red-100');
+            });
+
+            // Highlight the clicked element
+            const nodeEl = document.getElementById(`node-${nodeId}`);
+            if (nodeEl) {
+                nodeEl.classList.add('border-ifood-red', 'ring-2', 'ring-red-100');
+            }
+
+            const data = nodesData[nodeId];
+            if (data) {
+                // Populate drawer elements
+                document.getElementById('drawer-title').innerText = data.title;
+                document.getElementById('drawer-type').innerText = data.type;
+                document.getElementById('drawer-desc').innerHTML = data.desc;
+                document.getElementById('drawer-tech').innerHTML = data.tech;
+                document.getElementById('drawer-inputs').innerText = data.inputs;
+                document.getElementById('drawer-outputs').innerText = data.outputs;
+
+                // Open the Drawer (Slide-over)
+                const drawer = document.getElementById('drawer-container');
+                drawer.classList.remove('hidden');
+            }
+        }
+
+        // Closes the Slide-over technical drawer
+        function closeDrawer() {
+            const drawer = document.getElementById('drawer-container');
+            drawer.classList.add('hidden');
+
+            // Remove highlight border from the selected node as well
+            document.querySelectorAll('[id^="node-"]').forEach(el => {
+                el.classList.remove('border-ifood-red', 'ring-2', 'ring-red-100');
+            });
+        }
+    </script>
+</body>
+</html>
